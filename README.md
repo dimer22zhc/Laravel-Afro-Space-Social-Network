@@ -3,7 +3,7 @@ Made By BWIMBA MIHANDAGO DIMER
 
 Welcome to the Laravel-Afro-Space-Social-Network wiki!
 
-Installation
+Initial Installation
 
 * composer create-project --prefer-dist cretueusebiu/laravel-vue-spa
 * Edit .env and set your database connection details.
