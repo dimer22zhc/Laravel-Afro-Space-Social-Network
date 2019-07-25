@@ -22,3 +22,19 @@ Initial Features
 
 New Features
 1. Comming Soon
+
+Usage
+
+Development
+
+# build and watch
+npm run watch
+
+# serve with hot reloading
+npm run hot
+
+# Production
+npm run production
+
+# Email Verification
+To enable email verification make sure that your App\User model implements the Illuminate\Contracts\Auth\MustVerifyEmail contract.
