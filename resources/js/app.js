@@ -6,6 +6,7 @@ import App from '~/components/App'
 
 import '~/plugins'
 import '~/components'
+import '~/pages/partials'
 
 Vue.config.productionTip = false
 
