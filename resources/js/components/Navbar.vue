@@ -1,5 +1,5 @@
 <template>
-    <header class="header" id="site-header">
+    <header class="header" style="box-shadow: 1px 1px 20px -15px black;" id="site-header">
     <div class="container">
       <div class="page-title">
          <router-link :to="{ name: user ? 'home' : 'welcome' }" >
@@ -7,7 +7,7 @@
           </router-link>
       </div>
 
-      <div class="header-content-wrapper">
+      <div class="header-content-wrapper" >
         <locale-dropdown class="link-hearder" />
         <a v-if="!user" href="#" class="link-hearder">Home</a>
         <a v-if="!user" href="#" class="link-hearder">About</a>

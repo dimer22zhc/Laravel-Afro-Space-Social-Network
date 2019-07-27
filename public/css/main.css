@@ -10288,6 +10288,9 @@ ol ol li {
     .w-personal-info li .text {
       color: #1e1f22;
       display: block;
+      margin: 5px 5px 5px 5px;
+      padding-left: 5px;
+      border-left: 3px solid #0970a0;
       overflow: hidden; }
     .w-personal-info li .date {
       display: block;

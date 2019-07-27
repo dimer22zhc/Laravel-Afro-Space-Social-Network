@@ -13,7 +13,19 @@ export default [
   { path: '/email/resend', name: 'verification.resend', component: page('auth/verification/resend.vue') },
 
   { path: '/home', name: 'home', component: page('home.vue') },
-  { path: ':name/profile' , name:'user.profile', component : page('profile/index.vue')},
+  { path: '/profile' ,
+    component: page('profile/index.vue'),
+      children: [
+        { path:'',
+          component: page('profile/views/UserProfile.vue'),
+            children:[
+              { path: '', redirect: { name: 'profile' } },
+              { path:':name', name:'profile', component: page('profile/views/UserProfileLeadingView.vue') },
+              { path:'about', name:'about.user', component: page('profile/views/UserProfileAbout.vue') }
+            ]
+        }
+      ]
+  },
   { path: '/settings',
     component: page('settings/index.vue'),
     children: [
