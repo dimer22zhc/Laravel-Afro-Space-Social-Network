@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\Profile;
 use App\OAuthProvider;
 use App\Http\Controllers\Controller;
 use App\Exceptions\EmailTakenException;

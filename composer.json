@@ -11,6 +11,8 @@
         "laravel/framework": "5.8.*",
         "laravel/socialite": "^4.0",
         "laravel/tinker": "^1.0",
+        "mll-lab/laravel-graphql-playground": "^1.1",
+        "nuwave/lighthouse": "^3.7",
         "tymon/jwt-auth": "^1.0.0-rc.4.1"
     },
     "require-dev": {

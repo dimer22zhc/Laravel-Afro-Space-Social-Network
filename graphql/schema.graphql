@@ -1,0 +1,45 @@
+"A datetime string with format `Y-m-d H:i:s`, e.g. `2018-01-01 13:00:00`."
+scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
+
+"A date string with format `Y-m-d`, e.g. `2011-05-23`."
+scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
+
+type Query {
+
+    users: [User!]! @paginate(type: "paginator" model: "App\\User")
+    user(id: ID @eq): User @find(model: "App\\User")
+
+    profiles: [Profile] @all
+    me(id: ID @eq): Profile @find
+
+}
+type Mutation {
+  updateProfile(id: ID!, bio: String, dob:String): Profile @update
+  updateProfileInfo(id: ID!, show: String, address:String,phone_number:String,nationality:String,sex:String,marital_status:String): ProfilePersonalInfo @update
+}
+
+type User {
+    id: ID!
+    name: String!
+    email: String!
+    created_at: DateTime!
+    updated_at: DateTime!
+    profile: Profile @hasOne
+}
+type Profile{
+    id: ID!
+    bio: String
+    dob: String
+    user: User @belongsTo
+    personalInfo: ProfilePersonalInfo @hasOne
+}
+type ProfilePersonalInfo{
+    id:ID!
+    show: String
+    address: String
+    phone_number: String
+    nationality: String
+    sex:String
+    marital_status:String
+    profile: Profile @belongsTo
+}

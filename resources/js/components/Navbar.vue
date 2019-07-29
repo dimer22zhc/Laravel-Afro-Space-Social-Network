@@ -23,7 +23,7 @@
               </button>
             </div>
           </form>
-          <router-link :to="{ name:'profile', params:{ name : user.name } }" v-if="user" class="author-page author vcard inline-items more mr-4">
+          <router-link :to="{ name:'profile', params:{ name : user.name , id:user.id } }" v-if="user" class="author-page author vcard inline-items more mr-4">
             <div class="author-thumb">
               <img alt="author" :src="user.photo_url" class="avatar" height="35" width="35">
               <span class="icon-status online"></span>

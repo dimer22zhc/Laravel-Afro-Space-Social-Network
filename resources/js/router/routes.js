@@ -20,7 +20,7 @@ export default [
           component: page('profile/views/UserProfile.vue'),
             children:[
               { path: '', redirect: { name: 'profile' } },
-              { path:':name', name:'profile', component: page('profile/views/UserProfileLeadingView.vue') },
+              { path:':id/:name', name:'profile', component: page('profile/views/UserProfileLeadingView.vue') },
               { path:'about', name:'about.user', component: page('profile/views/UserProfileAbout.vue') }
             ]
         }
