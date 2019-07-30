@@ -8,50 +8,29 @@
         <div class="ui-block-content">
 
 					<!-- W-Personal-Info -->
-          <div v-if="this.$apollo.queries.me.loading" ><a-skeleton active :paragraph="{ rows: 4}" /></div>
+          <div v-if="this.$apollo.queries.personalInfo.loading" ><a-skeleton active :paragraph="{ rows: 4}" /></div>
 
           <!-- Error -->
           <div v-else-if="this.$apollo.error" class="error apollo">An error occurred</div>
 
           <!-- Result -->
-					<ul v-else-if="this.$apollo.data.me" class="widget w-personal-info item-block">
+					<ul v-else-if="this.$apollo.data.personalInfo" class="widget w-personal-info item-block">
 						<li>
 							<span class="title"><a-icon type="smile" theme="outlined" /> About Me:</span>
 
               <span >
                 <span class="row">
                   <span class="col-10 ">
-                    <span v-if=" me.bio === null" class="text">
-                      <p class=" m-0">Add a bio to let pleople know you </p>
+                    <span v-if=" personalInfo.bio === null" class="text">
+                      <p class=" m-0">Add a bio to let pleople know you more </p>
                     </span>
-                    <span class="text" else>{{ me.bio }}</span>
+                    <span class="text" else>{{ personalInfo.bio }}</span>
                   </span>
                   <span class="col-2 mt-1 p-0">
                     <a-popover trigger="click">
                       <template slot="content">
                         <p class="mb-1"><strong>Update your bio</strong></p>
-                        <a-textarea v-model="bio" placeholder="Autosize height based on content lines" :autosize="{ minRows: 2, maxRows: 2 }" /><br/>
-                        <a-tag color="rgb(9, 112, 160)">update</a-tag>
-                        <a-tag color="rgb(90, 90, 93)" >cancel</a-tag>
-                        <a-tag color="rgb(255, 255, 255)" class="m-0" style="float:right"><a-icon type="bars" style="font-size:14px; color:black" /></a-tag>
-                      </template>
-                      <span class="edit-info" ><a-icon  type="form" class=" hover" /></span>
-                    </a-popover>
-                  </span>
-                </span>
-              </span>
-						</li>
-
-						<li v-if="me.personalInfo.address !== null">
-              <span class="row">
-                <span class="col-10 ">
-                  <span class="text"><a-icon type="home" /> Lives in {{me.personalInfo.address}}</span>
-                </span>
-                <span class="col-2 mt-1 p-0">
-                    <a-popover trigger="click">
-                      <template slot="content">
-                        <p class="mb-1"><strong>Update your Address</strong></p>
-                        <a-textarea v-model="address" placeholder="Autosize height based on content lines" :autosize="{ minRows: 2, maxRows: 2 }" /><br/>
+                        <a-textarea v-model="form.bio" placeholder="Autosize height based on content lines" :autosize="{ minRows: 2, maxRows: 2 }" /><br/>
                         <a-tag color="rgb(9, 112, 160)"  @click="update">update</a-tag>
                         <a-tag color="rgb(90, 90, 93)" >cancel</a-tag>
                         <a-tag color="rgb(255, 255, 255)" class="m-0" style="float:right"><a-icon type="bars" style="font-size:14px; color:black" /></a-tag>
@@ -59,19 +38,21 @@
                       <span class="edit-info" ><a-icon  type="form" class=" hover" /></span>
                     </a-popover>
                   </span>
+                </span>
               </span>
 						</li>
-        		<li v-if="me.personalInfo.address !== null">
+
+						<li v-if="personalInfo.address !== null">
               <span class="row">
                 <span class="col-10 ">
-                  <span class="text"><a-icon type="book" /> Went to height school</span>
+                  <span class="text"><a-icon type="home" /> Lives in {{personalInfo.address}}</span>
                 </span>
-                 <span class="col-2 mt-1 p-0">
+                <span class="col-2 mt-1 p-0">
                     <a-popover trigger="click">
                       <template slot="content">
-                        <p class="mb-1"><strong>Update your Height School Name</strong></p>
-                        <a-textarea  placeholder="Autosize height based on content lines" :autosize="{ minRows: 2, maxRows: 2 }" /><br/>
-                        <a-tag color="rgb(9, 112, 160)">update</a-tag>
+                        <p class="mb-1"><strong>Update your Address</strong></p>
+                        <a-textarea v-model="form.address" placeholder="Autosize height based on content lines" :autosize="{ minRows: 2, maxRows: 2 }" /><br/>
+                        <a-tag :disabled="form.bio === null" color="rgb(9, 112, 160)"  @click="update">update</a-tag>
                         <a-tag color="rgb(90, 90, 93)" >cancel</a-tag>
                         <a-tag color="rgb(255, 255, 255)" class="m-0" style="float:right"><a-icon type="bars" style="font-size:14px; color:black" /></a-tag>
                       </template>
@@ -81,7 +62,7 @@
               </span>
 						</li>
             <li>
-              <span class="text"><a-icon type="calendar" /> Joined in {{ me.user.created_at | moment("YYYY") }} </span>
+              <span class="text"><a-icon type="calendar" /> Joined in {{ personalInfo.profile.user.created_at }} </span>
             </li>
 					</ul>
           <!-- No result -->
@@ -93,43 +74,53 @@
 </template>
 
 <script>
-  import { USER_PROFILE_QUERY, UPDATE_PROFILE_MUTATION } from '~/graphql/'
+  import Form from 'vform'
+  import { USER_PROFILE_QUERY, UPDATE_PERSONAL_INFO_MUTATION } from '~/graphql/'
   export default {
     name:"ProfileIntroInfo",
     data() {
       return {
         id:this.$route.params.id,
-        bio:'',
-        address:''
+        form: new Form({
+          bio: null,
+          address: null
+        })
+
       }
     },
     apollo: {
         // fetch profile by ID
-        me: {
+
+        personalInfo: {
             query: USER_PROFILE_QUERY,
             variables () {
                 return {
-                    id: this.id
+                    id: this.id,
                 }
+
             }
         }
     },
+
     methods: {
       update() {
             this.$apollo
                 .mutate({
-                    mutation: UPDATE_PROFILE_MUTATION,
+                    mutation: UPDATE_PERSONAL_INFO_MUTATION,
                     variables: {
                       id: this.id,
-                      bio: this.bio,
-                      address: this.address
+                      bio: this.form.bio !== null ? this.form.bio : this.personalInfo.bio,
+                      address: this.form.address !== null ? this.form.address : this.personalInfo.address
                     },
-                    update: (store, { data: { updateProfileInfo } }) => {
+                    update: (store, { data: { updatePersonalInfo } }) => {
                         // read data from cache for this query
-                        const data = store.readQuery({ query: USER_PROFILE_QUERY })
+                        console.log(this.id)
+
+                        const data = store.readQuery({ query: USER_PROFILE_QUERY, variables:{ id:this.id } })
 
                         // add new profile from the mutation to existing profiles
-                        data.me.push(updateProfileInfo.profile)
+                        data.personalInfo.push(updatePersonalInfo)
+
 
                         // write data back to the cache
                         store.writeQuery({ query: USER_PROFILE_QUERY, data })

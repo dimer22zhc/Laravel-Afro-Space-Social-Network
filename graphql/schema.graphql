@@ -10,12 +10,13 @@ type Query {
     user(id: ID @eq): User @find(model: "App\\User")
 
     profiles: [Profile] @all
-    me(id: ID @eq): Profile @find
+    profile(id: ID @eq): Profile @find
+
+    personalInfo(id: ID @eq): ProfilePersonalInfo @find
 
 }
 type Mutation {
-  updateProfile(id: ID!, bio: String, dob:String): Profile @update
-  updateProfileInfo(id: ID!, show: String, address:String,phone_number:String,nationality:String,sex:String,marital_status:String): ProfilePersonalInfo @update
+  updatePersonalInfo(id: ID!, bio:String, dob:String, show: String, address:String,phone_number:String,nationality:String,sex:String,marital_status:String): ProfilePersonalInfo @update
 }
 
 type User {
@@ -28,13 +29,13 @@ type User {
 }
 type Profile{
     id: ID!
-    bio: String
-    dob: String
     user: User @belongsTo
     personalInfo: ProfilePersonalInfo @hasOne
 }
 type ProfilePersonalInfo{
     id:ID!
+    bio: String
+    dob: String
     show: String
     address: String
     phone_number: String

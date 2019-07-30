@@ -16,6 +16,8 @@ class CreateProfilePersonalInfosTable extends Migration
         Schema::create('profile_personal_infos', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedInteger('profile_id');
+            $table->text('bio')->nullable();
+            $table->string('dob')->nullable();
             $table->string('address')->nullable();
             $table->string('phone_number')->nullable();
             $table->string('nationality')->nullable();
