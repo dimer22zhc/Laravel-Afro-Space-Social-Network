@@ -5,20 +5,20 @@ Welcome to the Laravel-Afro-Space-Social-Network wiki!
 
 Initial Installation
 
-* composer create-project --prefer-dist cretueusebiu/laravel-vue-spa
-* Edit .env and set your database connection details.
-* (When installed via git clone or download, run php artisan key:generate and php artisan jwt:secret).
-* php artisan migrate
-* npm install
+* 1. clone the repo
+* 2. run composer install
+* 3. (When installed via git clone , run php artisan key:generate and php artisan jwt:secret).
+* 4. npm install
+* 5. update .env file
 
 Initial Features
 * Laravel 5.8
-* Vue + VueRouter + Vuex + VueI18n + ESlint
+* Vue + VueRouter + Vuex + VueI18n + ESlint + vue-apollo + gql + jwt + ant-vue-design 
 * Pages with dynamic import and custom layouts
 * Login, register, email verification and password reset
 * Authentication with JWT
 * Socialite integration
-* Bootstrap 4 + Font Awesome 5
+* Bootstrap 4 + Font Awesome 5 + full design 
 
 New Features
 1. Comming Soon
